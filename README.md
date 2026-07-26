@@ -177,6 +177,13 @@ python main.py --with-frontend
 - 前端: http://localhost:5173
 - API 文档: http://localhost:8000/docs
 
+如果本机的 8000 端口已被其他程序占用，可通过 `BACKEND_URL` 指定前端代理地址，并用 `--port` 修改后端端口。例如 Windows PowerShell：
+
+```powershell
+$env:BACKEND_URL="http://127.0.0.1:8001"
+python main.py --with-frontend --port 8001
+```
+
 首次启动自动创建数据库，注册账号即可使用。
 
 ### Docker 部署
@@ -231,7 +238,7 @@ scheduler:
   enabled: false                    # 启用定时任务（自动运营/监控/Cookie巡检）
 ```
 
-主要环境变量：`SECRET_KEY`、`DATABASE_TYPE`、`DATABASE_URL`、`SCHEDULER_ENABLED`
+主要环境变量：`SECRET_KEY`、`DATABASE_TYPE`、`DATABASE_URL`、`SCHEDULER_ENABLED`、`BACKEND_URL`
 
 ---
 
