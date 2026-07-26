@@ -184,6 +184,8 @@ $env:BACKEND_URL="http://127.0.0.1:8001"
 python main.py --with-frontend --port 8001
 ```
 
+Windows 下也可以直接双击项目目录中的 `start_xhs.bat` 启动平台。
+
 首次启动自动创建数据库，注册账号即可使用。
 
 ### Docker 部署
