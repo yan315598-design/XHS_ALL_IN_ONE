@@ -75,7 +75,19 @@ def _load_yaml_config() -> Dict[str, Any]:
                 if data:
                     _flatten(data)
 
-    return flat
+    # YAML 是默认配置，环境变量和 .env 应该拥有更高优先级。
+    # 过滤掉已经由环境提供的字段，避免 Settings 初始化参数覆盖环境变量。
+    env_keys = {key.upper() for key in os.environ}
+    env_file = project_root / ".env"
+    if env_file.exists():
+        try:
+            from dotenv import dotenv_values
+
+            env_keys.update(key.upper() for key in dotenv_values(env_file) if key)
+        except ImportError:
+            pass
+
+    return {key: value for key, value in flat.items() if key.upper() not in env_keys}
 
 
 class Settings(BaseSettings):
